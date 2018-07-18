@@ -30,8 +30,6 @@ Example usage of the above command is as follows:
 
 Note : _Output file_ named _‘Prasad\_Bhagwat\_SimilarMovies_Jaccard.txt’_ is generated at the location from where the _spark-submit_ is run.
 
-**Task 1 Results using Python :**
-
 ### Scala command for executing LSH Algorithm using Jaccard Similarity
 
 * * *
