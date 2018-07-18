@@ -128,15 +128,15 @@ def main():
     # Converting tuples (key, [value1, value2....]) to list of values [value1, value2....] and performing LSH algorithm using given bands
     recommender_output  = movie_hash_rdd.values().mapPartitions(lambda x: algorithm_LSH(x)).distinct().persist()
 
-    # Calculating actual Jaccard Similarity between the candidate pairs
-    actual_output       = recommender_output.mapPartitions(lambda x: calculate_jaccard(x, transposed_character_matrix, movie_list)).distinct().sortByKey(True).collect()
+    # Calculating Jaccard Similarity between the candidate pairs
+    jaccard_similarity  = recommender_output.mapPartitions(lambda x: calculate_jaccard(x, transposed_character_matrix, movie_list)).distinct().sortByKey(True).collect()
 
     # Generating expected output of the form "Movie1, Movie2, Jaccard_Similarity"
-    temp_result         = str('\n'.join('%s, %s' % elements for elements in actual_output))
-    final_result        = temp_result.replace("(", "").replace(")","")
+    intermediate_result = str('\n'.join('%s, %s' % elements for elements in jaccard_similarity))
+    output_result       = intermediate_result.replace("(", "").replace(")","")
 
     # Writing results into output file
-    output_file.write(final_result)
+    output_file.write(output_result)
     output_file.close()
 
     # Printing time taken by program
