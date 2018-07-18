@@ -146,23 +146,23 @@ object JaccardLSH extends Config_params {
     val transposed_character_matrix = character_matrix_list.transpose
 
     // Generate Movie-Hash Signature matrix
-    val movie_signature_matrix  = gen_hash_signature_matrix(character_matrix, user_length, movie_length)
+    val movie_signature_matrix      = gen_hash_signature_matrix(character_matrix, user_length, movie_length)
 
     // Transforming Signature matrix into RDD and using mapPartitions on it using 4 partitions
-    val movie_hash_rdd          = spark_context.parallelize(movie_signature_matrix.zipWithIndex.map( x => (x._2, x._1))).partitionBy(new HashPartitioner(num_partitions))
+    val movie_hash_rdd              = spark_context.parallelize(movie_signature_matrix.zipWithIndex.map( x => (x._2, x._1))).partitionBy(new HashPartitioner(num_partitions))
 
     // Converting tuples (key, [value1, value2....]) to list of values [value1, value2....] and performing LSH algorithm using given bands
-    val recommender_output      = movie_hash_rdd.values.mapPartitions(x => algorithm_LSH(x)).distinct().persist()
+    val recommender_output          = movie_hash_rdd.values.mapPartitions(x => algorithm_LSH(x)).distinct().persist()
 
     // Calculating actual Jaccard Similarity between the candidate pairs
-    val actual_output           = recommender_output.mapPartitions(x => calculate_jaccard(x, transposed_character_matrix, movie_list)).distinct().sortByKey(true).collect()
+    val jaccard_similarity          = recommender_output.mapPartitions(x => calculate_jaccard(x, transposed_character_matrix, movie_list)).distinct().sortByKey(true).collect()
 
     // Generating expected output of the form "Movie1, Movie2, Jaccard_Similarity"
-    val temp_result             = actual_output.mkString("\n")
-    val final_result            = temp_result.replace("(", "").replace(")", "").replace(",", ", ")
+    val intermediate_result         = jaccard_similarity.mkString("\n")
+    val output_result               = intermediate_result.replace("(", "").replace(")", "").replace(",", ", ")
 
     // Writing results into output file
-    output_file.write(final_result)
+    output_file.write(output_result)
     output_file.close()
 
     // Printing time taken by program
