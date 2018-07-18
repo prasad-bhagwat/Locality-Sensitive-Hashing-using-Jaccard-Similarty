@@ -21,7 +21,7 @@ Exceuting Jaccard based LSH using _“Prasad\_Bhagwat\_Jaccard.py”_ file
     
 
 where,  
-_<ratings file path>_ corresponds to the absolute path of input _‘ratings.csv’_ file
+_1. 'ratings file path'_ corresponds to the absolute path of input _‘ratings.csv’_ file
 
 Example usage of the above command is as follows:
 
@@ -40,7 +40,7 @@ Exceuting Jaccard based LSH using _“Prasad\_Bhagwat\_JaccardLSH.jar”_ file
     
 
 where,  
-_<ratings file path>_ corresponds to the absolute path of input _‘ratings.csv’_ file
+_1. 'ratings file path'_ corresponds to the absolute path of input _‘ratings.csv’_ file
 
 Example usage of the above command is as follows:
 
