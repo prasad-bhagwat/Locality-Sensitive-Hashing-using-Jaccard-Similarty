@@ -7,6 +7,10 @@ Spark: 2.2.1
 Python: 2.7  
 Scala: 2.11
 
+### Dataset used for testing:
+[MovieLens](https://grouplens.org/datasets/movielens/) 
+
+
 ### Python command for executing LSH Algorithm using Jaccard Similarity
 
 * * *
