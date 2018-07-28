@@ -1,7 +1,7 @@
 import org.apache.spark.{HashPartitioner, SparkConf, SparkContext}
 import java.io._
-
 import scala.collection.mutable.{ArrayBuffer, ListBuffer}
+
 
 trait Config_params {
   val num_partitions  = 12
@@ -14,6 +14,7 @@ trait Config_params {
 
 
 object JaccardLSH extends Config_params {
+  
   // Generating Characteristic matrix of size (users x List(movies))
   // eg. List(movies) = List(0, 1, 1, 0, 1, 0, 0)
   def gen_character_matrix(values: Iterable[Int], movie_length: Int, movie_list: List[Int]): Array[Int] = {
