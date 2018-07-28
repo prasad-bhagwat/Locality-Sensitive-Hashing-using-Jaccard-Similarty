@@ -79,6 +79,7 @@ def calculate_jaccard(candidate_pair, transposed_characteristic_matrix, movie_li
 
 # Main function
 def main():
+    # Recording time taken by program
     start_time = time.time()
 
     # Global variable declarations
