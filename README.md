@@ -1,6 +1,7 @@
 Locality Sensitive Hashing using Jaccard Similarity
 =====================================================
 
+
 ### Enviroment versions required:
 
 Spark: 2.2.1  
